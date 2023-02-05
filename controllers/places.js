@@ -1,32 +1,9 @@
 const router = require('express').Router()
 const places = require('../models/places.js')
 
-// router.get('/', (req, res) => {
-//     res.render('GET /places')
-// })
 router.get('/', (req, res) => {
     res.render('places/index', { places })
 })
-
-// router.get('/', (req, res) => {
-//     let places = [{
-//         id: 1,
-//         name: 'H-Thai-ML',
-//         city: 'Seattle',
-//         state: 'WA',
-//         cuisines: 'Thai, Pan-Asian',
-//         pic: '/images/restaurant1.jpg'
-//       }, {
-//         id: 2,
-//         name: 'Coding Cat Cafe',
-//         city: 'Phoenix',
-//         state: 'AZ',
-//         cuisines: 'Coffee, Bakery',
-//         pic: '/images/restaurant2.jpg'
-//     }]      
-//     res.render('places/index', { places })
-//     }
-// )
 
 // POST the payload when the submit button is clicked
 router.post('/', (req, res) => {
@@ -56,7 +33,7 @@ router.get('/:id', (req, res) => {
     }
 })
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res) => { //delete route
     let id = Number(req.params.id)
     if (isNaN(id)) {
       res.render('error404')
@@ -66,13 +43,35 @@ router.delete('/:id', (req, res) => {
     }
     else {
       places.splice(id, 1)
-      res.redirect('/places')
+      res.redirect('/places') //redirect user to the places page
+    }
+})
+
+router.get('/:id/edit', (req, res) => { //on the place's edit screen, render the details by id
+    let id = Number(req.params.id)
+    if (isNaN(id)) {
+        res.render('error404')
+    }
+    else if (!places[id]) {
+        res.render('error404')
+    }
+    else {
+      res.render('places/edit', { place: places[id], id }) //pass the appropriate data item from the places array to the render method so that it is available for use in the view.
+    }
+})
+
+router.put('/:id', (req, res) => { 
+    let id = Number(req.params.id)
+    if (isNaN(id)) {
+        res.render('error404')
+    }
+    else if (!places[id]) {
+        res.render('error404')
+    }
+    else {
+        places[id] = req.body // Save the new data from the request’s body into into places [id]
+        res.redirect(`/places/${id}`)
     }
 })
 
 module.exports = router
-
-// router.get('*', (req, res) => {
-//     res.status(404).send('<h1>404 Page</h1>')
-// })
-
