@@ -1,14 +1,17 @@
 //Modules and Globals
-require('dotenv').config()
 const express = require('express')
-const app = express()
 const methodOverride = require('method-override')
 
-//Express Settings
+//Configuration
+require('dotenv').config()
+// const PORT = process.env.PORT
+const app = express()
+
+//Express Settings/Middleware
 // app.set('views', '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
-app.use(express.static('public'))
+app.use(express.static('public')) //middleware for setting up static assets
 app.use(express.urlencoded({ extended: true })) //body-parser
 app.use(methodOverride('_method'))
 
