@@ -24,14 +24,12 @@ router.post('/', (req, res) => {
     })
 })
 
+//New
 router.get('/new', (req, res) => {
     res.render('places/new')
 })
 
-router.get('/new', (req, res) => {
-    res.render('places/new')
-})
-
+//Show
 router.get('/:id', (req, res) => {
     db.Place.findById(req.params.id)
     .then(place => {
@@ -42,6 +40,12 @@ router.get('/:id', (req, res) => {
         res.render('error404')
     })
 })
+
+//Delete
+router.delete("/:id", async (req, res) => {
+    await db.Place.findbyIdAndDelete(req.params.id)
+    res.status(303).redirect('/places')
+});
 
 // router.get('/', (req, res) => {
 //     res.render('places/index', { places })
