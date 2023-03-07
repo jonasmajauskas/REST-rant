@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     })
     .catch(err => {
         if (err && err.name == 'ValidationError') {
-            let message = 'Validation Error: '
+            let message = 'Validation Error:'
             res.render('places/new', { message })
         }
         else {
