@@ -100,8 +100,6 @@ router.post('/:id/comment', (req, res) => {
 })
 
 
-
-
 // router.put('/:id', (req, res) => { 
 //     db.Place.findByIdandUpdate(req.params.id)
 //     // let id = Number(req.params.id)
