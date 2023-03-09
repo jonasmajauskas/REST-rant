@@ -8,7 +8,19 @@ function show (data) {
         No comments yet!
       </h3>
     )
+    let rating = (
+      <h3 className="inactive">
+        Not yet rated!
+      </h3>
+    )
     if (data.place.comments.length) {
+      let sumRatings = data.place.comments.reduce((tot, c) => {
+        return tot + c.stars
+      }, 0)
+      let averageRating = sumRatings / data.place.comments.length
+      rating = (
+        <h3> {Math.round(averageRating)} stars </h3>
+      ) //when rating is active, this value will show up
       comments = data.place.comments.map(c => {
         return (
           <div className="border">
@@ -30,11 +42,13 @@ function show (data) {
           <main>
             <h1>{ data.place.name }</h1>
             <h2>{ data.place.showEstablished() }</h2>
+            <h2>Rating</h2>
+            {rating}
             <img src = { data.place.pic }/>
             <h2>Find Us in { data.place.city }, { data.place.state }</h2>
             <h2>We serve { data.place.cuisines }</h2>
             <div className='container'>
-                <h1 className='rating_box'>Rating</h1>
+                <h1 className='rating_box'>Ratings</h1>
                 <h1 className='comments_box'>Comments</h1>
                 {comments}
             </div>
