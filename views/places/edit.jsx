@@ -6,28 +6,32 @@ function edit_form (data) { //add a parameter to the edit_form function to accep
         <Def>
           <main>
             <h1>Edit Place</h1>
-            <form method="POST" action={`/places/${data.place.id}?_method=PUT`}>
+            <form action={`/places/${data.place.id}`} method="PUT" >
                 <div className="form-group">
-                    <label htmlFor="name">Place Name</label>
-                    <input className="form-control" id="name" name="name" value={data.place.name} required /> 
+                    <label htmlFor="name">Place Name*</label>
+                    <input className="form-control" id="name" name="name" defaultValue={data.place.name} required /> 
                 </div>
                 <div className="form-group">
                     <label htmlFor="pic">Place Picture</label>
-                    <input className="form-control" id="pic" name="pic" value={data.place.pic} />
+                    <input className="form-control" id="pic" name="pic" defaultValue={data.place.pic} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="city">City</label>
-                    <input className="form-control" id="city" name="city" value={data.place.city} />
+                    <input className="form-control" id="city" name="city" defaultValue={data.place.city} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="state">State</label>
-                    <input className="form-control" id="state" name="state" value={data.place.state} />
+                    <input className="form-control" id="state" name="state" defaultValue={data.place.state} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="cuisines">Cuisines</label>
-                    <input className="form-control" id="cuisines" name="cuisines" value={data.place.cuisines} required />
+                    <label htmlFor="cuisines">Cuisines*</label>
+                    <input className="form-control" id="cuisines" name="cuisines" defaultValue={data.place.cuisines} required />
                 </div>
-                <input className="btn btn-primary" type="submit" value="Edit Place" />
+                <div className="form-group">
+                    <label htmlFor="founded">Founded</label>
+                    <input className="form-control" id="founded" name="founded" defaultValue={data.place.founded} />
+                </div>
+                <input className="btn btn-primary" type="submit" defaultValue="Update Place" />
             </form>
           </main>
         </Def>

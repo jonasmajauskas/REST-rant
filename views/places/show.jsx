@@ -17,9 +17,13 @@ function show (data) {
       let sumRatings = data.place.comments.reduce((tot, c) => {
         return tot + c.stars
       }, 0)
-      let averageRating = sumRatings / data.place.comments.length
+      let averageRating = Math.round(sumRatings / data.place.comments.length)
+      let stars = ''
+      for (let i=0; i < averageRating; i++) {
+        stars += '⭐️'
+      }
       rating = (
-        <h3> {Math.round(averageRating)} stars </h3>
+        <h3> {stars} stars </h3>
       ) //when rating is active, this value will show up
       comments = data.place.comments.map(c => {
         return (
@@ -42,7 +46,6 @@ function show (data) {
           <main>
             <h1>{ data.place.name }</h1>
             <h2>{ data.place.showEstablished() }</h2>
-            <h2>Rating</h2>
             {rating}
             <img src = { data.place.pic }/>
             <h2>Find Us in { data.place.city }, { data.place.state }</h2>
@@ -55,7 +58,7 @@ function show (data) {
             <a href={`/places/${data.place.id}/edit`} className='btn btn-warning'>
                 Edit
             </a>
-            <form action={`/places/${data.place.id}?_method=DELETE`} method="DELETE" >
+            <form action={`/places/${data.place.id}?_method=DELETE`} method="POST" >
                 <button type="submit" className="btn btn-danger">
                     Delete
                 </button>

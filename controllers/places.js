@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
     })
 })
 
+//after submitting a new place
 router.post('/', (req, res) => {
     db.Place.create(req.body)
     .then(() => {
@@ -39,7 +40,6 @@ router.get('/:id', (req, res) => {
     db.Place.findById(req.params.id)
     .populate('comments')
     .then(place => {
-        console.log(place.comments)
         res.render('places/show', { place })
     })
     .catch(err => {
@@ -47,6 +47,19 @@ router.get('/:id', (req, res) => {
         res.render('error404')
     })
 })
+
+//Update - a route that edits a place by id
+router.put('/:id', (req, res) => {
+    db.Place.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => {
+        res.redirect(`/places/${req.params.id}`)
+    })
+    .catch(err => {
+        console.log('err', err)
+        res.render('error404')
+    })
+})
+
 
 //Delete
 router.delete('/:id', (req, res) => {
@@ -74,7 +87,6 @@ router.get('/:id/edit', (req, res) => { //on the place's edit screen, render the
 
 //Create the comment
 router.post('/:id/comment', (req, res) => {
-    console.log('post comment', req.body)
     if (req.body.author === '') { req.body.author = undefined }
     req.body.rant = req.body.rant ? true : false
     db.Place.findById(req.params.id)
@@ -98,19 +110,6 @@ router.post('/:id/comment', (req, res) => {
             res.render('error404')
         })
 })
-
-
-// router.put('/:id', (req, res) => { 
-//     db.Place.findByIdandUpdate(req.params.id)
-//     // let id = Number(req.params.id)
-//     .then(place => {
-//         res.render('places/edit', { place })
-//     })
-//     .catch(err => {
-//         console.log('err', err)
-//         res.render('error404')
-//     })
-// })
 
 // router.get('/', (req, res) => {
 //     res.render('places/index', { places })
