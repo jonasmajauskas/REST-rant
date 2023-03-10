@@ -6,7 +6,7 @@ function edit_form (data) { //add a parameter to the edit_form function to accep
         <Def>
           <main>
             <h1>Edit Place</h1>
-            <form action={`/places/${data.place.id}`} method="PUT" >
+            <form action={`/places/${data.place.id}?_method=PUT`} method="POST" >
                 <div className="form-group">
                     <label htmlFor="name">Place Name*</label>
                     <input className="form-control" id="name" name="name" defaultValue={data.place.name} required /> 
